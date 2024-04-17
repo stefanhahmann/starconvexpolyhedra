@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.scijava</groupId>
+        <artifactId>pom-scijava</artifactId>
+        <version>37.0.0</version>
+    </parent>
+
+    <groupId>net.imglib2</groupId>
+    <artifactId>star-convex-polyhedra</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <package-name>net.imglib2</package-name>
+        <license.licenseName>apache</license.licenseName>
+        <license.projectName>star-convex-polyhedra</license.projectName>
+        <license.copyrightOwners>Stefan Hahmann</license.copyrightOwners>
+        <releaseProfiles>sign,deploy-to-scijava</releaseProfiles>
+        <enforcer.skip>true</enforcer.skip>
+    </properties>
+
+    <name>Star Convex Polyhedra</name>
+    <description>A demo showing a star convex polyhedra using imglib2</description>
+    <url>https://github.com/stefanhahmann/star-convex-polyhedra</url>
+    <inceptionYear>2024</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <dependencies>
+
+        <!-- bigdataviewer-core -->
+        <dependency>
+            <groupId>sc.fiji</groupId>
+            <artifactId>bigdataviewer-core</artifactId>
+        </dependency>
+
+        <!-- Octree for star convex polyhedra optimization -->
+        <dependency>
+            <groupId>cn.jimmiez</groupId>
+            <artifactId>pcutil</artifactId>
+            <version>0.3.0</version>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+
+        <!-- Test dependencies -->
+
+        <!-- JUnit 5 API -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.scif</groupId>
+            <artifactId>scifio</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>sc.fiji</groupId>
+            <artifactId>bigdataviewer-vistools</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- star convex polyhedra visualization demo -->
+        <dependency>
+            <groupId>org.jzy3d</groupId>
+            <artifactId>jzy3d-native-jogl-awt</artifactId>
+            <version>2.2.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <developers>
+        <developer>
+            <id>stefanhahmann</id>
+            <name>Stefan Hahmann</name>
+            <email>stefan.hahmann@tu-dresden.de</email>
+            <organization>TU Dresden (Physics of Life)</organization>
+            <organizationUrl>https://physics-of-life.tu-dresden.de/</organizationUrl>
+            <roles>
+                <role>lead</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>none</name>
+        </contributor>
+    </contributors>
+
+    <repositories>
+        <repository>
+            <id>scijava.public</id>
+            <url>https://maven.scijava.org/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <profiles>
+        <profile>
+            <id>build</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Configure the maven-surefire-plugin to use a heap size of 1gb while running tests. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <argLine>-Xmx1g</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
