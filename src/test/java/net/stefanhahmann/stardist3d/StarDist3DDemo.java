@@ -15,6 +15,7 @@ import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgFactory;
+import net.imglib2.img.array.ArrayImgs;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.integer.UnsignedShortType;
 import net.imglib2.type.numeric.real.FloatType;
@@ -146,9 +147,7 @@ public class StarDist3DDemo
 		for ( int i = image.numDimensions(); i < numDimensions; i++ )
 			newDimensions[ i ] = 1;
 
-		// TODO use non-deprecated factory
-		// noinspection deprecation
-		Img< FloatType > data = new ArrayImgFactory< FloatType >().create( newDimensions, new FloatType() );
+		Img< FloatType > data = ArrayImgs.floats( newDimensions );
 
 		// copy image data into data after the dimensions have been added
 		Cursor< FloatType > cursor = data.localizingCursor();
