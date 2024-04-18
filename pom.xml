@@ -10,20 +10,22 @@
     </parent>
 
     <groupId>net.imglib2</groupId>
-    <artifactId>star-convex-polyhedra</artifactId>
+    <artifactId>stardist3d-java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <package-name>net.imglib2</package-name>
         <license.licenseName>apache</license.licenseName>
-        <license.projectName>star-convex-polyhedra</license.projectName>
+        <license.projectName>stardist3d</license.projectName>
         <license.copyrightOwners>Stefan Hahmann</license.copyrightOwners>
         <releaseProfiles>sign,deploy-to-scijava</releaseProfiles>
         <enforcer.skip>true</enforcer.skip>
     </properties>
 
-    <name>Star Convex Polyhedra</name>
-    <description>A demo showing a star convex polyhedra using imglib2</description>
+    <name>StarDist 3D Java Demo</name>
+    <description>A demo showing a star convex polyhedron using imglib2 and an example workflow using StarDist 3d from
+        Java
+    </description>
     <url>https://github.com/stefanhahmann/star-convex-polyhedra</url>
     <inceptionYear>2024</inceptionYear>
     <licenses>
@@ -86,6 +88,14 @@
             <groupId>org.jzy3d</groupId>
             <artifactId>jzy3d-native-jogl-awt</artifactId>
             <version>2.2.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Java Deep Learning (JDLL) dependencies -->
+        <dependency>
+            <groupId>io.bioimage</groupId>
+            <artifactId>dl-modelrunner</artifactId>
+            <version>0.5.7</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
