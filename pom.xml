@@ -95,7 +95,7 @@
         <dependency>
             <groupId>io.bioimage</groupId>
             <artifactId>dl-modelrunner</artifactId>
-            <version>0.5.7</version>
+            <version>0.5.8-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
