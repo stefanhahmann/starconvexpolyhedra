@@ -15,7 +15,7 @@ import java.util.List;
 // TODO implementation of non-maximum suppression (NMS) is yet required,
 // cf. https://github.com/stardist/stardist-imagej/blob/master/src/main/java/de/csbdresden/stardist/StarDist2DNMS.java
 // otherwise there are too many non-maxima / irrelevant star-convex shapes in the output
-public class StarDist
+public class StarDist3D
 {
 
 	private static final Logger logger = LoggerFactory.getLogger( MethodHandles.lookup().lookupClass() );
@@ -26,12 +26,12 @@ public class StarDist
 	 */
 	private final List< StarConvexPolyhedron > starConvexPolyhedra = new ArrayList<>();
 
-	public StarDist( RandomAccessibleInterval< FloatType > distances, RandomAccessibleInterval< FloatType > probabilities )
+	public StarDist3D( RandomAccessibleInterval< FloatType > distances, RandomAccessibleInterval< FloatType > probabilities )
 	{
 		this( distances, probabilities, 0.4, 2 );
 	}
 
-	private StarDist( RandomAccessibleInterval< FloatType > distances, RandomAccessibleInterval< FloatType > probabilities,
+	private StarDist3D( RandomAccessibleInterval< FloatType > distances, RandomAccessibleInterval< FloatType > probabilities,
 			double threshold,
 			int buffer )
 	{

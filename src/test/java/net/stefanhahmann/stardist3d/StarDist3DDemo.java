@@ -39,6 +39,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * This class demonstrates prediction of star-convex shapes in 3D using a pre-trained StarDist model.
+ * <br>
+ * The post processing of the predicted shapes is not yet fully implemented. Star convex do exist. Non maximum suppression (NMS) is yet required to reduce the number of shapes.
+ * <br>
  * Requires:
  * <ul>
  *     <li>The <a href="https://www.tensorflow.org/install/source#gpu">requirements</a> for the latest supported tensorflow1 engine (=tensorflow_gpu version 1.15.0), i.e.</li>
@@ -50,7 +54,7 @@ import java.util.stream.Collectors;
  *     </li>
  * </ul>
  */
-public class StarDistDemo
+public class StarDist3DDemo
 {
 
 	private static final Logger logger = LoggerFactory.getLogger( MethodHandles.lookup().lookupClass() );
@@ -90,7 +94,7 @@ public class StarDistDemo
 
 		RandomAccessibleInterval< FloatType > distances = getDistances( Cast.unchecked( prediction ) );
 		RandomAccessibleInterval< FloatType > probabilities = getProbabilities( Cast.unchecked( prediction ) );
-		StarDist starDist = new StarDist( distances, probabilities );
+		StarDist3D starDist3D = new StarDist3D( distances, probabilities );
 		// TODO: Implement non-maximum suppression (NMS) to reduce the number of shapes
 		// computeEllipsoids( starDist );
 	}
@@ -216,10 +220,10 @@ public class StarDistDemo
 		return Arrays.stream( longArray ).mapToObj( String::valueOf ).collect( Collectors.joining( ", " ) );
 	}
 
-	private static void computeEllipsoids( StarDist starDist )
+	private static void computeEllipsoids( StarDist3D starDist3D )
 	{
 		List< SimpleMatrix > ellipsoids = new ArrayList<>();
-		for ( StarConvexPolyhedron surface : starDist.getStarConvexPolyhedra() )
+		for ( StarConvexPolyhedron surface : starDist3D.getStarConvexPolyhedra() )
 		{
 			List< double[] > points = surface.getPoints();
 			SimpleMatrix lrX = new SimpleMatrix( points.size(), 9 ); // 9 parameters are required to describe an ellipsoid.
