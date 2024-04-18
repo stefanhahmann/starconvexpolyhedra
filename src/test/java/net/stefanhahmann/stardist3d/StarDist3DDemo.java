@@ -67,13 +67,11 @@ public class StarDist3DDemo
 	private static final String VERSION = "1.15.0";
 	// private static final String VERSION = "2.0.0";
 
-	private static final String DL_DIRECTORY = "dl";
+	private static final String ENGINE_DIRECTORY = "engines";
 
-	private static final String ENGINE_DIRECTORY = DL_DIRECTORY + File.separator + "engines";
+	private static final String MODEL_DIRECTORY = "models" + File.separator + "stardist-tensorflow";
 
-	private static final String MODEL_DIRECTORY = DL_DIRECTORY + File.separator + "models" + File.separator + "stardist-tensorflow";
-
-	private static final String DATA_DIRECTORY = DL_DIRECTORY + File.separator + "data" + File.separator + "stardist";
+	private static final String DATA_DIRECTORY = "data" + File.separator + "stardist";
 
 	private static final boolean CPU = true;
 
