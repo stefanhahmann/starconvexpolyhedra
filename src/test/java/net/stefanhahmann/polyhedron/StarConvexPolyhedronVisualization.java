@@ -1,4 +1,4 @@
-package net.stefanhahmann.polyhedra;
+package net.stefanhahmann.polyhedron;
 
 import net.imglib2.util.LinAlgHelpers;
 import org.jzy3d.chart.Chart;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class StarConvexPolyhedraVisualization
+public class StarConvexPolyhedronVisualization
 {
 
 	public static void main( String[] args )
@@ -41,10 +41,10 @@ public class StarConvexPolyhedraVisualization
 
 	private static void testContains( Scene scene )
 	{
-		StarConvexPolyhedraTest test = new StarConvexPolyhedraTest();
+		StarConvexPolyhedronTest test = new StarConvexPolyhedronTest();
 		test.setUp();
-		StarConvexPolyhedra polyhedra = test.bigPolyhedraAt50;
-		List< double[] > points = polyhedra.getPoints();
+		StarConvexPolyhedron polyhedron = test.bigPolyhedronAt50;
+		List< double[] > points = polyhedron.getPoints();
 		List< Coord3d > pointsJzy = new ArrayList<>();
 		points.forEach( point -> pointsJzy.add( new Coord3d( point ) ) );
 
@@ -60,7 +60,7 @@ public class StarConvexPolyhedraVisualization
 		scene.add( scatterVertices );
 
 		// center
-		Coord3d center = new Coord3d( polyhedra.getCenter() );
+		Coord3d center = new Coord3d( polyhedron.getCenter() );
 		Scatter scatterCenter = new Scatter( Collections.singletonList( center ), Color.GREEN );
 		scatterCenter.setWidth( 20f );
 		scene.add( scatterCenter );
@@ -73,7 +73,7 @@ public class StarConvexPolyhedraVisualization
 
 		// nearest points
 		List< Coord3d > nearestPoints = new ArrayList<>();
-		polyhedra.findNearestPoints( test.shouldBeOutside ).forEach( point -> {
+		polyhedron.findNearestPoints( test.shouldBeOutside ).forEach( point -> {
 			Coord3d coord3d = new Coord3d( point );
 			nearestPoints.add( coord3d );
 		} );
@@ -89,11 +89,11 @@ public class StarConvexPolyhedraVisualization
 		scene.add( sphere );
 
 		// Create point data
-		StarConvexPolyhedraTest test = new StarConvexPolyhedraTest();
+		StarConvexPolyhedronTest test = new StarConvexPolyhedronTest();
 		test.setUp();
-		StarConvexPolyhedra polyhedra = test.unitPolyhedraAtZero;
+		StarConvexPolyhedron polyhedron = test.unitPolyhedronAtZero;
 		List< Coord3d > latticeJzy = new ArrayList<>();
-		polyhedra.getLattice().forEach( point -> latticeJzy.add( new Coord3d( point ) ) );
+		polyhedron.getLattice().forEach( point -> latticeJzy.add( new Coord3d( point ) ) );
 
 		// Create a line strip to connect the points
 		LineStrip lineStrip = new LineStrip();
@@ -112,7 +112,7 @@ public class StarConvexPolyhedraVisualization
 		LinAlgHelpers.subtract( candidateOnSurface, center, candidateOnSurface );
 		LinAlgHelpers.normalize( candidateOnSurface );
 
-		List< double[] > nearestPoints = polyhedra.findNearestPoints( candidate );
+		List< double[] > nearestPoints = polyhedron.findNearestPoints( candidate );
 		List< Coord3d > nearestPointsJzy = new ArrayList<>();
 		nearestPoints.forEach( point -> nearestPointsJzy.add( new Coord3d( point ) ) );
 
@@ -140,9 +140,9 @@ public class StarConvexPolyhedraVisualization
 		nearestPointsJzy.forEach( triangle::add );
 		scene.add( triangle );
 
-		boolean isInside = polyhedra.contains( candidate );
+		boolean isInside = polyhedron.contains( candidate );
 		System.out.println( "candidate inside = " + isInside );
-		isInside = polyhedra.contains( center );
+		isInside = polyhedron.contains( center );
 		System.out.println( "center inside = " + isInside );
 	}
 }

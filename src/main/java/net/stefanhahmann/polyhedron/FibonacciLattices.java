@@ -1,4 +1,4 @@
-package net.stefanhahmann.polyhedra;
+package net.stefanhahmann.polyhedron;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package net.stefanhahmann.polyhedra;
+package net.stefanhahmann.polyhedron;
 
 import bdv.viewer.Source;
 import net.imglib2.Cursor;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
-public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, Localizable
+public class StarConvexPolyhedronIterable< T > implements IterableInterval< T >, Localizable
 {
 	private final Source< T > source;
 
@@ -33,7 +33,7 @@ public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, 
 	 */
 	private final AffineTransform3D sourceTransform = new AffineTransform3D();
 
-	private IterableInterval< T > polyhedraVoxels;
+	private IterableInterval< T > polyhedronVoxels;
 
 	/**
 	 * position of a single voxel in source coordinates
@@ -41,7 +41,7 @@ public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, 
 	private final double[] tempVoxel = new double[ 3 ];
 
 	/*
-	 * center of polyhedra in source coordinates
+	 * center of polyhedron in source coordinates
 	 */
 	double[] center = new double[ 3 ];
 
@@ -66,7 +66,7 @@ public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, 
 	 */
 	private final long[] max = new long[ 3 ];
 
-	public StarConvexPolyhedraIterable( final Source< T > source )
+	public StarConvexPolyhedronIterable( final Source< T > source )
 	{
 		this.source = source;
 	}
@@ -74,38 +74,38 @@ public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, 
 	@Override
 	public Cursor< T > cursor()
 	{
-		return polyhedraVoxels.cursor();
+		return polyhedronVoxels.cursor();
 	}
 
 	@Override
 	public Cursor< T > localizingCursor()
 	{
-		return polyhedraVoxels.localizingCursor();
+		return polyhedronVoxels.localizingCursor();
 	}
 
 	@Override
 	public long size()
 	{
-		return polyhedraVoxels.size();
+		return polyhedronVoxels.size();
 	}
 
 	@Override
 	public T firstElement()
 	{
-		return polyhedraVoxels.firstElement();
+		return polyhedronVoxels.firstElement();
 	}
 
 	@Override
 	public Object iterationOrder()
 	{
-		return polyhedraVoxels.iterationOrder();
+		return polyhedronVoxels.iterationOrder();
 	}
 
 	@SuppressWarnings( "all" )
 	@Override
 	public Iterator< T > iterator()
 	{
-		return polyhedraVoxels.iterator();
+		return polyhedronVoxels.iterator();
 	}
 
 	@Override
@@ -133,46 +133,46 @@ public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, 
 	}
 
 	/**
-	 * Resets this iterable to that it iterates over the specified polyhedra. The
+	 * Resets this iterable to that it iterates over the specified polyhedron. The
 	 * pixel iterated are taken from the resolution level 0,
 	 *
-	 * @param polyhedra
-	 *            the polyhedra to iterate.
+	 * @param polyhedron
+	 *            the polyhedron to iterate.
 	 */
-	public void reset( final StarConvexPolyhedra polyhedra, final int timepoint )
+	public void reset( final StarConvexPolyhedron polyhedron, final int timepoint )
 	{
-		reset( polyhedra, timepoint, 0 );
+		reset( polyhedron, timepoint, 0 );
 	}
 
 	/**
-	 * Resets this iterable to that it iterates over the specified polyhedra, at the
+	 * Resets this iterable to that it iterates over the specified polyhedron, at the
 	 * specified resolution level in the source. Generate an error of the
 	 * specified resolution level is not present in the source.
 	 *
-	 * @param polyhedra
-	 *            the polyhedra to iterate.
+	 * @param polyhedron
+	 *            the polyhedron to iterate.
 	 * @param resolutionLevel
 	 *            the resolution level to use in the source.
 	 */
-	public void reset( final StarConvexPolyhedra polyhedra, final int timepoint, final int resolutionLevel )
+	public void reset( final StarConvexPolyhedron polyhedron, final int timepoint, final int resolutionLevel )
 	{
 		// get source transform from source
 		source.getSourceTransform( timepoint, resolutionLevel, sourceTransform );
 		final RandomAccessibleInterval< T > img = source.getSource( timepoint, resolutionLevel );
 
 		// transform spot position into source coordinates
-		sourceTransform.inverse().apply( polyhedra.getCenter(), center );
+		sourceTransform.inverse().apply( polyhedron.getCenter(), center );
 
-		// transform polyhedra vertices into source coordinates
-		List< double[] > vertices = new ArrayList<>( polyhedra.getPoints() );
+		// transform polyhedron vertices into source coordinates
+		List< double[] > vertices = new ArrayList<>( polyhedron.getPoints() );
 		vertices.forEach( vertex -> sourceTransform.inverse().apply( vertex, vertex ) );
 
 		// transform bounding box into source coordinates
-		sourceTransform.inverse().apply( polyhedra.getBoundingBox3D().getMinPoint(), minPoint );
-		sourceTransform.inverse().apply( polyhedra.getBoundingBox3D().getMaxPoint(), maxPoint );
+		sourceTransform.inverse().apply( polyhedron.getBoundingBox3D().getMinPoint(), minPoint );
+		sourceTransform.inverse().apply( polyhedron.getBoundingBox3D().getMaxPoint(), maxPoint );
 
 		// transform lattice on unit sphere into source coordinates
-		List< double[] > lattice = polyhedra.getLattice();
+		List< double[] > lattice = polyhedron.getLattice();
 		lattice.forEach( vertex -> sourceTransform.inverse().apply( vertex, vertex ) );
 
 		// get transformed bounding box with long coordinates
@@ -196,8 +196,8 @@ public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, 
 			for ( int d = 0; d < 3; ++d )
 				min[ d ] = max[ d ] = 0;
 
-		// create a new polyhedra with the vertices transformed into source coordinates
-		StarConvexPolyhedra transformedPolyhedra = new StarConvexPolyhedra( center, vertices, minPoint, maxPoint, lattice );
+		// create a new polyhedron with the vertices transformed into source coordinates
+		StarConvexPolyhedron transformedPolyhedron = new StarConvexPolyhedron( center, vertices, minPoint, maxPoint, lattice );
 
 		// inflate polyhedra by .5 pixels on either side
 		// TODO
@@ -210,9 +210,9 @@ public class StarConvexPolyhedraIterable< T > implements IterableInterval< T >, 
 				logger.debug( "contains count = {}", count.get() );
 			localizable.localize( tempVoxel );
 			// TODO this seems to get called more often than expected
-			return transformedPolyhedra.contains( tempVoxel );
+			return transformedPolyhedron.contains( tempVoxel );
 		};
 		final DefaultMask mask = new DefaultMask( 3, BoundaryType.UNSPECIFIED, contains, KnownConstant.UNKNOWN );
-		polyhedraVoxels = Regions.sampleWithMask( mask, Views.interval( img, this ) );
+		polyhedronVoxels = Regions.sampleWithMask( mask, Views.interval( img, this ) );
 	}
 }

@@ -1,4 +1,4 @@
-package net.stefanhahmann.polyhedra;
+package net.stefanhahmann.polyhedron;
 
 import cn.jimmiez.pcu.common.graphics.Octree;
 import net.imglib2.util.LinAlgHelpers;
@@ -9,13 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Class to generate a star convex polyhedra.
+ * Class to generate a star convex polyhedron.
  *
  * @see <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9093435">Star-convex Polyhedra for 3D Object Detection and Segmentation in Microscopy</a>
  * @see <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9093435">Measurement of areas on a sphere using Fibonacci and latitude–longitude lattices.</a>
  * @author Stefan Hahmann
  */
-public class StarConvexPolyhedra
+public class StarConvexPolyhedron
 {
 	private final List< double[] > lattice;
 
@@ -32,11 +32,11 @@ public class StarConvexPolyhedra
 	private final Octree octree;
 
 	/**
-	 * Creates a star convex polyhedra with the given center and distances to the points. The number of points that the polyhedra contains is determined by the number of given distances.
-	 * @param center the center of the polyhedra. Must not be null. Expected order: xyz.
+	 * Creates a star convex polyhedron with the given center and distances to the points. The number of points that the polyhedron contains is determined by the number of given distances.
+	 * @param center the center of the polyhedron. Must not be null. Expected order: xyz.
 	 * @param distances the distances from the center to the points. Must not be null. Must contain at least 4 distances.
 	 */
-	public StarConvexPolyhedra( final double[] center, final List< Double > distances )
+	public StarConvexPolyhedron( final double[] center, final List< Double > distances )
 	{
 		if ( center == null )
 			throw new IllegalArgumentException( "center cannot be null." );
@@ -77,7 +77,7 @@ public class StarConvexPolyhedra
 		octree.buildIndex( latticePoints );
 	}
 
-	StarConvexPolyhedra(
+	StarConvexPolyhedron(
 			final double[] center, final List< double[] > vertices, final double[] min, final double[] max, final List< double[] > lattice
 	)
 	{
@@ -90,7 +90,7 @@ public class StarConvexPolyhedra
 	}
 
 	/**
-	 * Tests if the given point is inside the star convex polyhedra and returns true if it is.<p>
+	 * Tests if the given point is inside the star convex polyhedron and returns true if it is.<p>
 	 * Workflow:
 	 * <ul>
 	 *     <li>Project given point on unit sphere</li>
@@ -104,10 +104,10 @@ public class StarConvexPolyhedra
 	 *     <li>Find the 3 nearest points to this point on the unit sphere</li>
 	 *     <li>Construct a triangle from these 3 points</li>
 	 *     <li>Test on which side of the triangle the point lies</li>
-	 *     <li>If the point lies on the same side as the center, it is inside the polyhedra</li>
+	 *     <li>If the point lies on the same side as the center, it is inside the polyhedron</li>
 	 * </ul>
 	 * @param point the point to test. Must not be null.
-	 * @return true if the given point is inside the star convex polyhedra.
+	 * @return true if the given point is inside the star convex polyhedron.
 	 */
 	public boolean contains( final double[] point )
 	{
