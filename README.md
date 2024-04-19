@@ -1,2 +1,1 @@
-# Star Convex Polyhedra
-A repository to demonstrate a star convex polyhedra using imglib2
+# A repository containing experiments to use StarDist3d algorithms from Java 
