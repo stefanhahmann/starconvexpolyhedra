@@ -41,7 +41,5 @@ public class StarDist3dJdll
 		RandomAccessibleInterval< T > prediction = model.predict( input );
 		BdvFunctions.show( input, "StarDist 3D input" ).setDisplayRange( 0, 200 );
 		BdvFunctions.show( prediction, "StarDist 3D result" ).setDisplayRange( 0, 100 );
-
-		System.out.println( true );
 	}
 }
