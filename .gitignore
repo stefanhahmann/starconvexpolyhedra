@@ -28,3 +28,6 @@ replay_pid*
 
 # iml files
 *.iml
+
+# kotlin module files
+*.kotlin_module
