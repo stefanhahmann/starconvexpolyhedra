@@ -25,3 +25,6 @@ replay_pid*
 
 # engines folder
 /engines/**
+
+# iml files
+*.iml
