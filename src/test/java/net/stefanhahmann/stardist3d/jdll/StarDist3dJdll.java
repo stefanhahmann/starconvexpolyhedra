@@ -32,7 +32,7 @@ public class StarDist3dJdll
 		Stardist3D.installRequirements();
 		Stardist3D model = Stardist3D.fromPretained( "StarDist Plant Nuclei 3D ResNet", false );
 		RandomAccessibleInterval< T > input = DecodeNumpy.retrieveImgLib2FromNpy(
-				new File( "models" + File.separator + "stardist-3d-plant-nuclei" + File.separator + "test_input.npy" )
+				new File( "data" + File.separator + "stardist-3d-plant-nuclei" + File.separator + "test_input.npy" )
 						.getAbsolutePath() );
 
 		// input = Utils.transpose( input );
