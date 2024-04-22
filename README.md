@@ -9,7 +9,11 @@ This repo contains a demo similar to (https://github.com/bioimage-io/JDLL/blob/m
 
 The [demo](https://github.com/stefanhahmann/stardist3d-java/blob/main/src/test/java/net/stefanhahmann/stardist3d/jdll/StarDist3dJdll.java) includes the prediction and the postprocessing of results from stardist. Both is done within JDLL/Python. It does not yet cover the preprocessing. However, there are plans that this will be integrated into JDLL soon.
 
-There is also another Demo, which just runs the prediction without the postprocessing here: https://github.com/stefanhahmann/stardist3d-java/blob/main/src/test/java/net/stefanhahmann/stardist3d/StarDist3DDemo.java
-This is added to this repo for completeness. There is also a StarConvexPolyhedron class (https://github.com/stefanhahmann/stardist3d-java/blob/main/src/main/java/net/stefanhahmann/polyhedron/StarConvexPolyhedron.java) in this repo, which could be used to implement the postprocessing on the Java side (if somebody is interested to do so).
+There is also another Demo, which just runs the prediction without the postprocessing here: https://github.com/stefanhahmann/stardist3d-java/blob/main/src/test/java/net/stefanhahmann/stardist3d/StarDist3DDemo.java This is added to this repo for completeness.
+
+There is also a StarConvexPolyhedron class (https://github.com/stefanhahmann/stardist3d-java/blob/main/src/main/java/net/stefanhahmann/polyhedron/StarConvexPolyhedron.java) in this repo, which could be used to implement the postprocessing on the Java side (if somebody is interested to do so). A [Star convex polyhedron in Big Data Viewer looks like this](https://github.com/stefanhahmann/stardist3d-java/blob/main/src/test/java/net/stefanhahmann/polyhedron/StarConvexPolyhedronDemo.java):
+
+![GIF 22 04 2024 21-39-03](https://github.com/stefanhahmann/stardist3d-java/assets/10515534/b77f5c9a-4c68-449c-af59-d593da8e0f07)
+
 
 In order to demonstrate Kotlin working together with Java within the same project / repo, there is some code translated to Kotlin: https://github.com/stefanhahmann/stardist3d-java/blob/main/src/main/kotlin/net/stefanhahmann/polyhedron/kotlin/StarConvexPolyhedron.kt
