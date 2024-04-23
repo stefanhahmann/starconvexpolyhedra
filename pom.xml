@@ -100,6 +100,14 @@
             <version>0.5.8-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Convert numpy input data from bio image model zoo to a tiff image -->
+        <dependency>
+            <groupId>sc.fiji</groupId>
+            <artifactId>fiji</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <developers>
