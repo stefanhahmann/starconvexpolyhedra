@@ -54,6 +54,8 @@ import java.util.stream.Collectors;
  *       </ul>
  *     </li>
  * </ul>
+ *
+ * Works with JDLL Release 0.5.8
  */
 public class StarDist3DDemo
 {
