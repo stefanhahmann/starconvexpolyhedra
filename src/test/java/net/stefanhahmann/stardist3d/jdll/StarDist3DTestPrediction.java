@@ -1,10 +1,7 @@
 package net.stefanhahmann.stardist3d.jdll;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.Arrays;
 
 import net.imglib2.RandomAccessible;
@@ -25,7 +22,6 @@ import net.imglib2.view.Views;
 import org.apache.commons.compress.archivers.ArchiveException;
 
 import bdv.BigDataViewer;
-import bdv.util.Bdv;
 import bdv.util.BdvFunctions;
 import bdv.util.BdvOptions;
 import bdv.util.RandomAccessibleIntervalSource;
@@ -43,9 +39,9 @@ import mpicbg.spim.data.XmlIoSpimData;
 
 /**
  * <ul>
- *     <li>Model: https://bioimage.io/#/?tags=stardist&id=10.5281/zenodo.8421755 (StarDist Plant Nuclei 3D ResNet)</li>
- *     <li>Data: https://www.ebi.ac.uk/biostudies/BioImages/studies/S-BIAD1026</li>
- *     <li>Description: https://github.com/kreshuklab/go-nuclear </li>
+ *     <li>Model: <a href="https://bioimage.io/#/?tags=stardist&id=10.5281/zenodo.8421755">StarDist Plant Nuclei 3D ResNet</a> </li>
+ *     <li>Data: <a href="https://www.ebi.ac.uk/biostudies/BioImages/studies/S-BIAD1026">Data from BioImage Archive</a></li>
+ *     <li>Description: <a href="https://github.com/kreshuklab/go-nuclear">Description</a> </li>
  * </ul>
  */
 public class StarDist3DTestPrediction
@@ -56,7 +52,7 @@ public class StarDist3DTestPrediction
 	{
 		String xmlFilePath = "1136.xml";
 		SpimData spimData = new XmlIoSpimData().load( xmlFilePath );
-		BigDataViewer bdv = BigDataViewer.open( spimData, "H5 Dataset Viewer", null, ViewerOptions.options() );
+		BigDataViewer bdv = BigDataViewer.open( spimData, "Plan Nuclei 3D", null, ViewerOptions.options() );
 
 		int level = 0;
 		int timePoint = 0;
