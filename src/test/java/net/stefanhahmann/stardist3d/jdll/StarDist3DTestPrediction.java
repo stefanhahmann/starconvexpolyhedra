@@ -54,7 +54,7 @@ public class StarDist3DTestPrediction
 		SpimData spimData = new XmlIoSpimData().load( xmlFilePath );
 		BigDataViewer bdv = BigDataViewer.open( spimData, "Plan Nuclei 3D", null, ViewerOptions.options() );
 
-		int level = 0;
+		int level = 3;
 		int timePoint = 0;
 		int setupId = 0;
 
