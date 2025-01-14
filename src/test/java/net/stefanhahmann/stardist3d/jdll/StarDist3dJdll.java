@@ -43,10 +43,14 @@ public class StarDist3dJdll
 		input = Views.hyperSlice( input, 4, 0 );
 		input = Views.hyperSlice( input, 0, 0 );
 
+		System.out.println( "input: " + input );
+
 		// input = Utils.transpose( input );
 		// prediction
 		Stardist3D model = Stardist3D.fromPretained( MODEL_NAME, false );
 		RandomAccessibleInterval< T > prediction = model.predict( input );
+
+		System.out.println( "prediction: " + prediction );
 
 		// show results in Bdv
 		BdvFunctions.show( input, "StarDist 3D input" ).setDisplayRange( 0, 200 );
