@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
+import net.imglib2.FinalInterval;
 import net.imglib2.RandomAccessible;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.converter.Converter;
 import net.imglib2.converter.Converters;
+import net.imglib2.interpolation.randomaccess.NearestNeighborInterpolatorFactory;
+import net.imglib2.realtransform.AffineTransform3D;
 import net.imglib2.realtransform.InvertibleRealTransform;
 import net.imglib2.realtransform.RealViews;
 import net.imglib2.realtransform.Scale3D;
@@ -17,6 +20,7 @@ import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.FloatType;
 import net.imglib2.util.Cast;
 import net.imglib2.util.Util;
+import net.imglib2.view.IntervalView;
 import net.imglib2.view.Views;
 
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -54,7 +58,7 @@ public class StarDist3DTestPrediction
 		SpimData spimData = new XmlIoSpimData().load( xmlFilePath );
 		BigDataViewer bdv = BigDataViewer.open( spimData, "Plan Nuclei 3D", null, ViewerOptions.options() );
 
-		int level = 3;
+		int level = 0;
 		int timePoint = 0;
 		int setupId = 0;
 
@@ -62,6 +66,8 @@ public class StarDist3DTestPrediction
 		RandomAccessibleInterval< T > inputRai = sourceAndConverter.getSpimSource().getSource( timePoint, level );
 		if ( !isFloatType( inputRai ) )
 			inputRai = convertToFloatType( inputRai );
+		// reduce the size of the input for faster processing
+		inputRai = Views.subsample( inputRai, 4, 4, 4 );
 
 		System.out.println( "Input Dimensions: " + Arrays.toString( inputRai.dimensionsAsLongArray() ) );
 		Stardist3D.installRequirements();
@@ -73,6 +79,18 @@ public class StarDist3DTestPrediction
 				new RandomAccessibleIntervalSource<>( Cast.unchecked( predictionRai ), new FloatType(), "Prediction" );
 
 		BdvFunctions.show( predictionSource, BdvOptions.options() );
+
+		// Use interpolation and scaling
+		AffineTransform3D transform = new AffineTransform3D();
+		transform.scale( 4.0 ); // Scale by a factor of 2 in all dimensions
+
+		// Transform the prediction RAI and copy into the scaled prediction RAI
+		IntervalView< T > scaledPredictionRai = Views.interval(
+				Views.raster(
+						RealViews.transform( Views.interpolate( predictionRai, new NearestNeighborInterpolatorFactory<>() ), transform ) ),
+				new FinalInterval( 1120, 1120, 268 ) );
+
+		BdvFunctions.show( scaledPredictionRai, "Scaled Prediction RAI", BdvOptions.options() );
 	}
 
 	private static boolean isFloatType( RandomAccessibleInterval< ? > rai )
